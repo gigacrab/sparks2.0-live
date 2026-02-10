@@ -38,3 +38,12 @@ void drawHome(void) {
     tft.setFreeFont();
     tft.drawString("", 162, 25);
 }
+
+void handleHomeInput(int x, int y) {
+    // if statements if the coordinate is within a certain range
+    if (inRange(x, 118, 201) && inRange(y, 155, 171)) {
+        // pressed settings
+    } else if (inRange(x, 126, 187) && inRange(y, 192, 208)) {
+        // pressed alarm
+    }
+}
