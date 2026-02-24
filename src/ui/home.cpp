@@ -13,12 +13,7 @@ void drawHome(void) {
     tft.fillScreen(0x0);
     // date_disp
     tft.setTextColor(0xFFFF);
-    tft.setTextSize(1);
-    tft.setFreeFont(&FreeSerif9pt7b);
-    tft.drawString("Sun, Feb 1, 2026", 99, 107);
-    // hour_minute_disp
-    tft.setFreeFont(&FreeMono24pt7b);
-    tft.drawString("00:00", 90, 64);
+    updateHomeTime();
     // alarm_btn_mid
     tft.drawBitmap(153, 192, image_alarm_btn_mid_bits, 15, 16, 0x651D);
     // settings_btn_mid
@@ -46,4 +41,23 @@ void handleHomeInput(int x, int y) {
     } else if (inRange(x, 126, 187) && inRange(y, 192, 208)) {
         // pressed alarm
     }
+}
+
+void updateHomeTime() {
+    char date[20];
+    char time[10];
+    //Sun, Feb 1, 2026
+    //00:00
+    sprintf(date, "%s, %s %d, %d", 
+        days[timeInfo.tm_wday], months[timeInfo.tm_mon],
+        timeInfo.tm_mday, 1900 + timeInfo.tm_year);
+    sprintf(time, "%02d:%02d", timeInfo.tm_hour, timeInfo.tm_min);
+
+    tft.setTextColor(0xFFFF);
+    tft.setTextSize(1);
+    tft.setFreeFont(&FreeSerif9pt7b);
+    tft.drawString(date, 99, 107);
+    // hour_minute_disp
+    tft.setFreeFont(&FreeMono24pt7b);
+    tft.drawString(time, 90, 64);
 }
